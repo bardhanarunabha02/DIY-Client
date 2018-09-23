@@ -42,8 +42,8 @@ export default {
       document.body.webkitRequestFullscreen();          
     },
     getPosts (){
-      // debugger
-      axios.get('https://diy-server.herokuapp.com/posts').then(response=> {
+      // debugger https://diy-server.herokuapp.com/posts
+      axios.get('http://localhost:3000/').then(response=> {
         debugger
         this.posts = response.data
       })
