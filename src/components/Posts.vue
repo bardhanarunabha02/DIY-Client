@@ -1,12 +1,12 @@
 <template>
-  <div class="posts" id="maincontainer" style="background-color:blue">
-    <h1>Posts</h1>
-    This file will list all the posts.
-
-    <div v-for="post in posts" :key="post">
+  <div class="posts" id="maincontainer">
+    <h1>Product Details</h1>
+    
+    <div v-for="post in posts" :key="post" style="text-align: left;">
       <p>
-        <span><b>{{ post.color }}</b></span><br />
-        <span>{{ post.value }}</span>
+        <span><b>Product ID</b></span> : <span>{{ post.ProductID }}</span><br />
+        <span><b>Product Name</b> </span> : <span>{{ post.ProductName }}</span><br/>
+        <span><b> Product Description</b> </span> : <span>{{ post.ProductDescription }}</span>
       </p>
     </div>
     <button id="goFS" v-on:click="GoFullScreen()">Go fullscreen</button>
