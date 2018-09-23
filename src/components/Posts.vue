@@ -43,7 +43,7 @@ export default {
     },
     getPosts (){
       // debugger https://diy-server.herokuapp.com/posts
-      axios.get('http://localhost:3000/').then(response=> {
+      axios.get('https://diy-server.herokuapp.com/').then(response=> {
         debugger
         this.posts = response.data
       })
