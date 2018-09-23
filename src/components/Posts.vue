@@ -9,7 +9,9 @@
         <span><b> Product Description</b> </span> : <span>{{ post.ProductDescription }}</span>
       </p>
     </div>
-    <button id="goFS" v-on:click="GoFullScreen()">Go fullscreen</button>
+    <!-- <button id="goFS" v-on:click="GoFullScreen()">Go fullscreen</button>
+    <button id="exitFS" v-on:click="ExitFullScreen()">Exit fullscreen</button> -->
+    <button id="toggleFS" v-on:click="ToggleFullScreen()">Toggle fullscreen</button>
   </div>
 </template>
 
@@ -17,6 +19,7 @@
 // import PostsService from 'services/PostsService'
 import axios from 'axios'
 import * as Three from 'three'
+import * as screenfull from 'screenfull';
 export default {
   name: 'posts',
   data () {
@@ -32,14 +35,26 @@ export default {
     // debugger
     //this.init()
     //this.animate()
-    
-     this.getPosts()
+    this.getPosts()
   },
   methods: {
     GoFullScreen (){
       debugger;
       //document.body.requestFullscreen();
-      document.body.webkitRequestFullscreen();          
+      //document.body.webkitRequestFullscreen();     
+      if (screenfull.enabled) {
+        screenfull.request();
+      } else {
+        // Ignore or do something else
+      }
+    },
+    ExitFullScreen (){
+      screenfull.exit()
+    },
+    ToggleFullScreen (){
+      if (screenfull.enabled) {
+		  screenfull.toggle();
+	    }
     },
     getPosts (){
       // debugger https://diy-server.herokuapp.com/posts
@@ -48,6 +63,7 @@ export default {
         this.posts = response.data
       })
     },
+    
     init (){
       // debugger
       let container = document.getElementById('app')
