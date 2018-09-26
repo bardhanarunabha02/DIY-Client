@@ -4,9 +4,9 @@
     
     <div v-for="post in posts" :key="post" style="text-align: left;">
       <p>
-        <span><b>Product ID</b></span> : <span>{{ post.ProductID }}</span><br />
+        <span><b>Product ID</b></span> : <span>{{ post.EAN }}</span><br />
         <span><b>Product Name</b> </span> : <span>{{ post.ProductName }}</span><br/>
-        <span><b> Product Description</b> </span> : <span>{{ post.ProductDescription }}</span>
+        <!-- <span><b> Product Description</b> </span> : <span>{{ post.ProductDescription }}</span> -->
       </p>
     </div>
     <!-- <button id="goFS" v-on:click="GoFullScreen()">Go fullscreen</button>
@@ -17,29 +17,44 @@
 
 <script>
 // import PostsService from 'services/PostsService'
+import Vue from 'vue'
 import axios from 'axios'
 import * as Three from 'three'
 import * as screenfull from 'screenfull';
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
 export default {
   name: 'posts',
   data () {
     return {
-        posts: []
+        posts: [],
+        QueryParam: ''
     }
   },
-  beforeCreate(){
-    debugger;
+  // beforeCreate(){
+  //   debugger;
     
-  },
-  mounted () {
-    // debugger
-    //this.init()
-    //this.animate()
+  // },
+  // mounted () {
+  //   // debugger
+  //   //this.init()
+  //   //this.animate()
+   
+  //   debugger;
+  //   //var param = this.$router.params.prodCode
+  // },
+  created(){
+    //debugger;
+    // this.QueryParam = this.$route.params.prodCode
+    // console.log(this.QueryParam);
     this.getPosts()
+    
   },
   methods: {
     GoFullScreen (){
-      debugger;
+      //debugger;
       //document.body.requestFullscreen();
       //document.body.webkitRequestFullscreen();     
       if (screenfull.enabled) {
@@ -58,8 +73,20 @@ export default {
     },
     getPosts (){
       // debugger https://diy-server.herokuapp.com/posts
-      axios.get('https://diy-server.herokuapp.com/').then(response=> {
-        debugger
+      //https://diy-server.herokuapp.com/
+      // axios.get('http://localhost:3000/').then(response=> {
+      //   debugger
+      //   this.posts = response.data
+      // })
+
+      //debugger;
+      let productID = this.$route.params.prodid;
+      let postBody = {};
+      postBody.prodcode = productID; //EN58745896332, EN58745896321
+      
+      axios.post('https://diy-server.herokuapp.com/', 
+        JSON.parse(JSON.stringify(postBody))).then(response=> {
+        //debugger
         this.posts = response.data
       })
     },
