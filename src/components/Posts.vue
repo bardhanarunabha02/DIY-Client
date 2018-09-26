@@ -20,16 +20,13 @@
 import axios from 'axios'
 import * as Three from 'three'
 import * as screenfull from 'screenfull';
+import * as Router from 'vue-router';
 export default {
   name: 'posts',
   data () {
     return {
         posts: []
     }
-  },
-  beforeCreate(){
-    debugger;
-    
   },
   mounted () {
     // debugger
@@ -57,13 +54,24 @@ export default {
 	    }
     },
     getPosts (){
-      // debugger https://diy-server.herokuapp.com/posts
-      axios.get('https://diy-server.herokuapp.com/').then(response=> {
+      // debugger https://diy-server.herokuapp.com/posts https://diy-server.herokuapp.com/
+      debugger;
+      let productID = this.$route.params.prodid;
+      let postBody = {};
+      postBody.prodcode = productID; //EN58745896332, EN58745896321
+      
+      axios.post('http://localhost:3000/', 
+        JSON.parse(JSON.stringify(postBody))).then(response=> {
         debugger
         this.posts = response.data
       })
     },
-    
+    /*
+    axios.get('http://localhost:3000/').then(response=> {
+        debugger
+        this.posts = response.data
+      })
+    */
     init (){
       // debugger
       let container = document.getElementById('app')
